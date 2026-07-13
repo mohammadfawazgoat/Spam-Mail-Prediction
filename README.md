@@ -4,6 +4,7 @@ A Machine Learning project that classifies emails as Spam or Ham (Not Spam) usin
 
 The model is trained on a labeled spam email dataset and allows users to enter custom email messages for real-time spam detection through an interactive command-line interface.
 
+Live Demo Link: https://spam-mail-prediction-zqqftax5wzhus4tvuqsiwz.streamlit.app/
 ---
 
 # 🚀 Features
