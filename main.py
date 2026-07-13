@@ -35,23 +35,28 @@ def prediction(content):
     stemmed_user = stemming(content)
     vectorized_user = vectorizer.transform([stemmed_user])
     prediction = model.predict(vectorized_user)
+    prob = model.predict_proba(vectorized_user)
+
+    spam_confidence = prob[0][1] * 100
+    legit_confidence = prob[0][0] * 100
     
     if prediction[0] == 0:
-        return "Mail Is Legit"
+        return "Mail Is Legit", spam_confidence, legit_confidence
+        
     else:
-        return "Mail Is Spam"
+        return "Mail Is Spam", spam_confidence, legit_confidence
 
 
 def main():
     st.title("Mail Spam Detector Web App")
     
     user_input = st.text_input("Enter The Content Of Mail")
-    res = ''
     
     if st.button("Check Results"):
-        res = prediction(user_input)
-    
-    st.success(res)
+        res, spam, legit = prediction(user_input)
+        st.success(res)
+        st.success(f"Spam: {spam:.2f}%")
+        st.success(f"Legit: {legit:.2f}%")
 
 if __name__ == "__main__":
     main()
